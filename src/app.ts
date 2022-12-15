@@ -3,6 +3,7 @@ import path from 'node:path';
 import 'reflect-metadata';
 import { routes } from './routes';
 import { Admin } from './utils/createAdmin';
+import cors from 'cors';
 
 export default class App {
   private app = express();
@@ -10,6 +11,7 @@ export default class App {
   public listen(): void {
     new Admin().checkAdmin();
     this.app.use(express.json());
+    this.app.use(cors());
     this.app.use(
       express.static(path.resolve(__dirname, '..', 'public', 'upload')),
     );

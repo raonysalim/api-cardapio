@@ -10,21 +10,19 @@ export const routes = Router();
 
 //user routes
 routes.post('/admin/login', new User().login);
-routes.post('/admin', new Jwt().auth, new User().create);
 routes.put('/admin/:id', new Jwt().auth, new User().update);
-routes.delete('/admin/:id', new Jwt().auth, new User().delete);
 
 //category routes
 routes.get('/category', new Category().findAll);
-routes.post('/category', new Category().create);
-routes.put('/category/:id', new Category().update);
-routes.delete('/category/:id', new Category().delete);
+routes.post('/category', new Jwt().auth, new Category().create);
+routes.put('/category/:id', new Jwt().auth, new Category().update);
+routes.delete('/category/:id', new Jwt().auth, new Category().delete);
 
 //Itens routes
-routes.get('/itens', new Item().findAll);
-routes.post('/itens', new Item().create);
-routes.put('/itens/:id', new Item().update);
-routes.delete('/itens/:id', new Item().delete);
+routes.get('/itens/:categoryId', new Item().findAll);
+routes.post('/itens', new Jwt().auth, new Item().create);
+routes.put('/itens/:id', new Jwt().auth, new Item().update);
+routes.delete('/itens/:id', new Jwt().auth, new Item().delete);
 
 // Image itens routes
 routes.post(

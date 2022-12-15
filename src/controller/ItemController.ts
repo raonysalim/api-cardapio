@@ -7,8 +7,8 @@ export class Item {
 
   public create = async (req: Request, res: Response) => {
     const { name, description } = req.body;
-    const categoryId = req.body.categoryId;
-    const price = req.body.price;
+    const categoryId = Number(req.body.categoryId);
+    const price = Number(req.body.price);
 
     try {
       const newItem = await this.prisma.itens.create({
@@ -27,8 +27,13 @@ export class Item {
   };
 
   public findAll = async (req: Request, res: Response) => {
+    let categoryId = Number(req.params.categoryId);
+    categoryId ? categoryId : (categoryId = 0);
     try {
       const allItens = await this.prisma.itens.findMany({
+        where: {
+          categoryId,
+        },
         include: {
           category: true,
         },
@@ -41,9 +46,10 @@ export class Item {
   };
 
   public update = async (req: Request, res: Response) => {
-    const { name, description, price, categoryId } = req.body;
+    const { name, description, categoryId } = req.body;
     const id = Number(req.params.id);
-
+    const price = Number(req.body.price);
+    console.log(req.body);
     try {
       const check = await this.prisma.itens.findUnique({
         where: {
@@ -66,7 +72,8 @@ export class Item {
       });
       return res.json(updateItem);
     } catch (e) {
-      return res.status(400).json(e);
+      console.log(e);
+      return res.status(400).json({ err: { e } });
     }
   };
 
