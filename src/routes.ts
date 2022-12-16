@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { Category } from './controller/CategoryController';
 import { Item } from './controller/ItemController';
 import { User } from './controller/UserController';
@@ -32,3 +32,8 @@ routes.post(
   new Item().uploadImage,
 );
 routes.delete('/itens/image/:id', new Item().deleteImage);
+
+//auth
+routes.get('/auth', new Jwt().auth, (req: Request, res: Response) => {
+  res.status(200);
+});

@@ -23,7 +23,7 @@ model Itens {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  price       Float
+  price       String
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int
   image       String?

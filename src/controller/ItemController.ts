@@ -6,9 +6,8 @@ export class Item {
   private prisma = new PrismaClient();
 
   public create = async (req: Request, res: Response) => {
-    const { name, description } = req.body;
+    const { name, description, price } = req.body;
     const categoryId = Number(req.body.categoryId);
-    const price = Number(req.body.price);
 
     try {
       const newItem = await this.prisma.itens.create({
@@ -46,9 +45,8 @@ export class Item {
   };
 
   public update = async (req: Request, res: Response) => {
-    const { name, description, categoryId } = req.body;
+    const { name, description, categoryId, price } = req.body;
     const id = Number(req.params.id);
-    const price = Number(req.body.price);
     console.log(req.body);
     try {
       const check = await this.prisma.itens.findUnique({
