@@ -1,10 +1,11 @@
 import multer from 'multer';
-import path from 'path';
+import path, { resolve } from 'path';
 export class Upload {
   static uploadImage = multer({
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, './public/upload/itens');
+        './public/upload/itens';
+        cb(null, path.join(__dirname, '../../public/upload/itens'));
       },
       filename: (req, file, cb) => {
         cb(null, req.params.id + path.extname(file.originalname));

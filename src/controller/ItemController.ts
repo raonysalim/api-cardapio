@@ -30,6 +30,9 @@ export class Item {
     categoryId ? categoryId : (categoryId = 0);
     try {
       const allItens = await this.prisma.itens.findMany({
+        orderBy: {
+          name: 'asc',
+        },
         where: {
           categoryId,
         },
@@ -85,13 +88,14 @@ export class Item {
         },
       });
       if (!check) return res.status(400).json('Item não encontrado');
-      const deleteItem = await this.prisma.itens.delete({
+      await checkImg.check(id);
+      await this.prisma.itens.delete({
         where: {
           id,
         },
       });
-      checkImg.check(id);
-      return res.json(deleteItem);
+
+      return res.json(await checkImg.check(id));
     } catch (e) {
       res.status(400).json('Ocorreu um erro: ' + e);
     }
@@ -107,7 +111,7 @@ export class Item {
           image: req.file.filename,
         },
       });
-      return res.json('Imagem atualizada!');
+      return res.json({ category: check });
     }
     return res
       .status(400)

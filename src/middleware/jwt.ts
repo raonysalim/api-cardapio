@@ -8,9 +8,7 @@ export class Jwt {
   private secret = process.env.JWT_SECRET;
 
   public tokenGen = (id: number, user: string): any => {
-    const token = jwt.sign({ id: id, user: user }, this.secret as string, {
-      expiresIn: '72h',
-    });
+    const token = jwt.sign({ id: id, user: user }, this.secret as string);
     return { token, id };
   };
 

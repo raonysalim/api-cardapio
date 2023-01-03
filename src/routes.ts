@@ -27,6 +27,7 @@ routes.delete('/itens/:id', new Jwt().auth, new Item().delete);
 // Image itens routes
 routes.post(
   '/itens/image/:id',
+  new Jwt().auth,
   checkImg.middleCheck,
   Upload.uploadImage.single('image'),
   new Item().uploadImage,

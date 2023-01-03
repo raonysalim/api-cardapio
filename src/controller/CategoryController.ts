@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
+import { checkImg } from '../utils/checkImg';
 
 export class Category {
   private prisma = new PrismaClient();
@@ -22,7 +23,11 @@ export class Category {
 
   public findAll = async (req: Request, res: Response) => {
     try {
-      const allCategories = await this.prisma.category.findMany();
+      const allCategories = await this.prisma.category.findMany({
+        orderBy: {
+          name: 'asc',
+        },
+      });
       return res.json(allCategories);
     } catch (e) {
       res.status(400).json(e);
@@ -60,6 +65,16 @@ export class Category {
       const check = await this.prisma.category.findUnique({ where: { id } });
       console.log(check);
       if (!check) return res.status(400).json('Categoria não encontrada');
+      const teste = await this.prisma.itens.findMany({
+        where: {
+          categoryId: id,
+        },
+      });
+      teste.forEach(async (v) => {
+        v.id;
+        await checkImg.check(v.id);
+      });
+
       const deleteCategory = await this.prisma.category.delete({
         where: {
           id,
@@ -67,6 +82,7 @@ export class Category {
       });
       return res.json(deleteCategory);
     } catch (e) {
+      console.log(e);
       return res.status(400).json('Ocorreu um erro' + e);
     }
   };

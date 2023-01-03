@@ -24,7 +24,7 @@ model Itens {
   name        String
   description String
   price       String
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  Int
   image       String?
   image_url   String?
