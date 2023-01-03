@@ -40,7 +40,6 @@ export class Item {
           category: true,
         },
       });
-      console.log(req.user);
       return res.json(allItens);
     } catch (e) {
       res.status(400).json(e);
@@ -50,7 +49,6 @@ export class Item {
   public update = async (req: Request, res: Response) => {
     const { name, description, categoryId, price } = req.body;
     const id = Number(req.params.id);
-    console.log(req.body);
     try {
       const check = await this.prisma.itens.findUnique({
         where: {
@@ -73,7 +71,6 @@ export class Item {
       });
       return res.json(updateItem);
     } catch (e) {
-      console.log(e);
       return res.status(400).json({ err: { e } });
     }
   };

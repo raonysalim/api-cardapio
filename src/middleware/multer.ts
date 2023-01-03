@@ -1,5 +1,5 @@
 import multer from 'multer';
-import path, { resolve } from 'path';
+import path from 'path';
 export class Upload {
   static uploadImage = multer({
     storage: multer.diskStorage({
@@ -24,5 +24,3 @@ export class Upload {
     },
   });
 }
-
-// export const teste = new Upload();

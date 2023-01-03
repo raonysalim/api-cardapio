@@ -82,7 +82,6 @@ export class Category {
       });
       return res.json(deleteCategory);
     } catch (e) {
-      console.log(e);
       return res.status(400).json('Ocorreu um erro' + e);
     }
   };

@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import * as fs from 'node:fs/promises';
-import path, { resolve } from 'node:path';
-import { Upload } from '../middleware/multer';
 
 class CheckImg {
   private prisma = new PrismaClient();

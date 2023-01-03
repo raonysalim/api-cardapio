@@ -21,7 +21,6 @@ export class Jwt {
         token as string,
         this.secret as jwt.Secret,
       ) as Express.Request['user'];
-      console.log(checkToken);
       req.user = {
         id: checkToken.id,
         user: checkToken.user,
