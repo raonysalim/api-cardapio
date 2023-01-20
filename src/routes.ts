@@ -33,8 +33,3 @@ routes.post(
   new Item().uploadImage,
 );
 routes.delete('/itens/image/:id', new Item().deleteImage);
-
-//auth
-routes.get('/auth', new Jwt().auth, (req: Request, res: Response) => {
-  res.status(200);
-});
